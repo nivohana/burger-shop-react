@@ -26,7 +26,7 @@ class OrderSummary extends Component {
                     {listOfIngredients}
                 </ul>
                 <p> <strong>Total Price: {this.props.price.toFixed(2)}$</strong></p>
-                <p> Continue To ChechOut?</p>
+                <p> Continue To Checkout?</p>
                 <Button
                     btnType={"Danger"} clicked={this.props.backToOrder}
                 > CANCLE  </Button>
