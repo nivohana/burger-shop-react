@@ -12,26 +12,26 @@ const controls = [
 
 
 const burgerControls = (props) => {
-    
+
     return (
 
         <div className={styles.BurgerControls}>
-           <p> Total Price: <strong>{props.price.toFixed(2)}$ </strong> </p>
+            <p> Total Price: <strong>{props.price.toFixed(2)}$ </strong> </p>
             {controls.map(ctrl => (
                 <BurgerControl
                     key={ctrl.Label}
                     Label={ctrl.Label}
-                    added = {() => props.ingredientAdded(ctrl.type)}
-                    removed=  {() => props.ingredientRemove(ctrl.type)}
-                    toDisabled = {props.disabled[ctrl.type]}
-                     />
-            ))} 
-            <button 
-            className={styles.OrderButton}
-            disabled= {!props.purchasable}
-            onClick={props.showModal}
-            >ORDER NOW </button> 
-              
+                    added={() => props.ingredientAdded(ctrl.type)}
+                    removed={() => props.ingredientRemove(ctrl.type)}
+                    toDisabled={props.disabled[ctrl.type]}
+                />
+            ))}
+            <button
+                className={styles.OrderButton}
+                disabled={!props.purchasable}
+                onClick={props.showModal}
+            >ORDER NOW </button>
+
         </div>
 
     );
@@ -39,6 +39,6 @@ const burgerControls = (props) => {
 
 burgerControls.propTypes = {
     price: propTypes.number.isRequired
-    };
-    
+};
+
 export default burgerControls;
