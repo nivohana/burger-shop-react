@@ -107,7 +107,7 @@ class buildBurger extends Component {
             deliveryMethod: 'SuperFast'
         }
 
-        axios.post('/orders.jsonsd', order)
+        axios.post('/orders.json', order)
             .then(respons => {
                 this.setState({ loader: false, showModal: false })
                 console.log(respons);
@@ -164,6 +164,7 @@ class buildBurger extends Component {
                     {orderSummary}
                 </Modal>
                     {burger}
+                    
             </Auxlier>
         );
     }
