@@ -2,6 +2,7 @@ import React from 'react'
 import BurgerControl from './BurgerControl/BurgerControl';
 import styles from './BurgerControls.module.css';
 import propTypes from 'prop-types';
+import Link from 'react-router-dom';
 
 const controls = [
     { Label: 'Salad', type: 'salad' },
@@ -12,7 +13,7 @@ const controls = [
 
 
 const burgerControls = (props) => {
-
+    console.log(props)
     return (
 
         <div className={styles.BurgerControls}>
@@ -26,12 +27,11 @@ const burgerControls = (props) => {
                     toDisabled={props.disabled[ctrl.type]}
                 />
             ))}
-            <button
-                className={styles.OrderButton}
-                disabled={!props.purchasable}
-                onClick={props.showModal}
-            >ORDER NOW </button>
-
+                <button
+                    className={styles.OrderButton}
+                    disabled={!props.purchasable}
+                    onClick={props.showModal}
+                    > ORDER NOW </button>
         </div>
 
     );

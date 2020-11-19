@@ -91,42 +91,57 @@ class buildBurger extends Component {
 
     purchaseContinueHandler = () => {
         //alert('Good Choice!')
-        this.setState({ loader: true })
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.price,
-            customer: {
-                name: 'Niv',
-                address: {
-                    street: ' Levontin 30',
-                    zipcose: '31234',
-                    country: 'israel'
-                },
-                email: 'nivtheking@gmail.com'
-            },
-            deliveryMethod: 'SuperFast'
+        // this.setState({ loader: true })
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.price,
+        //     customer: {
+        //         name: 'Niv',
+        //         address: {
+        //             street: ' Levontin 30',
+        //             zipcose: '31234',
+        //             country: 'israel'
+        //         },
+        //         email: 'nivtheking@gmail.com'
+        //     },
+        //     deliveryMethod: 'SuperFast'
+        // }
+
+        // axios.post('/orders.json', order)
+        //     .then(respons => {
+        //         this.setState({ loader: false, showModal: false })
+        //         console.log(respons);
+        //     })
+        //     .catch(error => {
+        //         this.setState({ loader: false, showModal: false })
+
+        //     })
+        const queryParams = []
+        for (let i in this.state.ingredients){
+            queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
         }
+        const queryString = queryParams.join('&');
+        console.log(queryString);
+       
+        this.props.history.push({
+            pathname:'/checkout',
+            search: '?'+ queryString 
+        })
+        
 
-        axios.post('/orders.json', order)
-            .then(respons => {
-                this.setState({ loader: false, showModal: false })
-                console.log(respons);
-            })
-            .catch(error => {
-                this.setState({ loader: false, showModal: false })
-
-            })
     }
 
 
     render() {
 
+        console.log('1')
         const disabledInfo = {
             ...this.state.ingredients
         }
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
+        console.log('2')
 
         let orderSummary = null;
         let burger = this.state.error? <p style={{textAlign:'center'}}> Cant load The Ingredients!</p> : <Spinner />
@@ -145,12 +160,13 @@ class buildBurger extends Component {
                     />
                 </Auxlier>
             );
-            orderSummary = <OrderSummary
-            ingredients={this.state.ingredients}
-            backToOrder={this.purchaseCancelHandler}
-            continueToCheckout={this.purchaseContinueHandler}
-            price={this.state.totalPrice}
-        />
+            orderSummary = 
+                <OrderSummary
+                    ingredients={this.state.ingredients}
+                    backToOrder={this.purchaseCancelHandler}
+                    continueToCheckout={this.purchaseContinueHandler}
+                    price={this.state.totalPrice}
+                />
         }
 
         if (this.state.loader) {
