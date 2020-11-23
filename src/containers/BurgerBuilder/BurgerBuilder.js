@@ -29,9 +29,10 @@ class buildBurger extends Component {
         axios.get('/Ingredients.json')
             .then(response => {
                 this.setState({ ingredients: response.data })
+                console.log('Ingredients were Loaded from the DB')
             })
             .catch(error => {
-                this.setState({error:true})
+                this.setState({ error: true })
             })
 
     }
@@ -90,61 +91,33 @@ class buildBurger extends Component {
     };
 
     purchaseContinueHandler = () => {
-        //alert('Good Choice!')
-        // this.setState({ loader: true })
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.price,
-        //     customer: {
-        //         name: 'Niv',
-        //         address: {
-        //             street: ' Levontin 30',
-        //             zipcose: '31234',
-        //             country: 'israel'
-        //         },
-        //         email: 'nivtheking@gmail.com'
-        //     },
-        //     deliveryMethod: 'SuperFast'
-        // }
-
-        // axios.post('/orders.json', order)
-        //     .then(respons => {
-        //         this.setState({ loader: false, showModal: false })
-        //         console.log(respons);
-        //     })
-        //     .catch(error => {
-        //         this.setState({ loader: false, showModal: false })
-
-        //     })
         const queryParams = []
-        for (let i in this.state.ingredients){
+        for (let i in this.state.ingredients) {
             queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]))
         }
+        queryParams.push("price=" + this.state.totalPrice);
         const queryString = queryParams.join('&');
         console.log(queryString);
-       
+
         this.props.history.push({
-            pathname:'/checkout',
-            search: '?'+ queryString 
+            pathname: '/checkout',
+            search: '?' + queryString
         })
-        
+
 
     }
 
 
     render() {
-
-        console.log('1')
         const disabledInfo = {
             ...this.state.ingredients
         }
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
-        console.log('2')
-
+       
         let orderSummary = null;
-        let burger = this.state.error? <p style={{textAlign:'center'}}> Cant load The Ingredients!</p> : <Spinner />
+        let burger = this.state.error ? <p style={{ textAlign: 'center' }}> Cant load The Ingredients!</p> : <Spinner />
 
         if (this.state.ingredients) {
             burger = (
@@ -160,7 +133,7 @@ class buildBurger extends Component {
                     />
                 </Auxlier>
             );
-            orderSummary = 
+            orderSummary =
                 <OrderSummary
                     ingredients={this.state.ingredients}
                     backToOrder={this.purchaseCancelHandler}
@@ -173,14 +146,14 @@ class buildBurger extends Component {
             orderSummary = <Spinner />
         }
 
-        
+
         return (
             <Auxlier>
                 <Modal show={this.state.showModal} modalclosed={this.purchaseCancelHandler}>
                     {orderSummary}
                 </Modal>
-                    {burger}
-                    
+                {burger}
+
             </Auxlier>
         );
     }

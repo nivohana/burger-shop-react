@@ -2,7 +2,7 @@ import React from 'react'
 import BurgerControl from './BurgerControl/BurgerControl';
 import styles from './BurgerControls.module.css';
 import propTypes from 'prop-types';
-import Link from 'react-router-dom';
+
 
 const controls = [
     { Label: 'Salad', type: 'salad' },

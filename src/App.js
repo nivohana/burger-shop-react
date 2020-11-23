@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Checkout from './containers/Checkout/Checkout';
-import {Route} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import ContactDate from './containers/Checkout/ContactData/ContactData';
+import Orders from './containers/Checkout/Orders/Orders';
 
 
 class App extends Component {
   render() {
-    return ( 
-      <div> 
-          <Layout>
-            <Route path="/" exact component={BurgerBuilder} />
-            <Route path="/checkout"  component={Checkout} />      
-          </Layout>
+    return (
+      <div>
+        <Layout>
+          <Route path="/" exact component={BurgerBuilder} />
+          <Route path="/orders" component={Orders} /> 
+          <Route path="/checkout" component={Checkout} />   
+        </Layout>
       </div>
     );
   }
